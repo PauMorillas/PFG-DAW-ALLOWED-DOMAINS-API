@@ -15,6 +15,11 @@ class CheckApiToken
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $token = $request->bearerToken();
+        if ($token !== env('API_SECRET')) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        // si el token es válido, continuar con la solicitud
         return $next($request);
     }
 }
