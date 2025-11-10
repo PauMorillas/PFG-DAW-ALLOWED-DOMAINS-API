@@ -8,6 +8,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/api/allowed-domains', [DomainController::class, 'getDomains'])->middleware(CheckApiToken::class);
+// Aplicamos el middleware de autenticación (CheckApiToken) a todas las rutas de dominio.
+Route::middleware([CheckApiToken::class])->group(function () {
+    
+    // RUTA GET (Consumo por Spring Boot para obtener la lista de dominios)
+    Route::get('api/allowed-domains', [DomainController::class, 'getDomains']);
 
-Route::post('/api/save-domain', [DomainController::class, 'saveDomain'])->middleware(CheckApiToken::class);
+    // RUTA POST (Uso administrativo para añadir nuevos dominios)
+    Route::post('api/save-domain', [DomainController::class, 'saveDomain']);
+});
