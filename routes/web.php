@@ -9,3 +9,5 @@ Route::get('/', function () {
 });
 
 Route::get('/api/allowed-domains', [DomainController::class, 'getDomains'])->middleware(CheckApiToken::class);
+
+Route::post('/api/save-domain', [DomainController::class, 'saveDomain'])->middleware(CheckApiToken::class);
