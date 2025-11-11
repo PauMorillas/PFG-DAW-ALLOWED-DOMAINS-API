@@ -21,6 +21,7 @@ class DomainController extends Controller
 
     public function saveDomain(Request $request)
     {
+        
         // 1. VALIDACIÓN DE DATOS
         $validator = Validator::make($request->all(), [
             // El campo 'dominio' es requerido, debe ser un formato de URL, 
